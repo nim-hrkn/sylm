@@ -1,4 +1,5 @@
       program test
+      use m_eulerangle
       implicit none
       integer,parameter:: lmax=2
       integer,parameter:: nl=lmax+1

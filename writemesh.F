@@ -30,12 +30,13 @@
       call rotdlmm(rot, 1, nl, dlmm) 
 
       do il=0,lmax
-      write(*,*) 'il=',il
+      write(*,*) 'dlmm,il=',il
          do im=-lmax,lmax
          write(*,'(10f10.5)')  dlmm( -lmax:lmax, im, il, 1) 
          enddo
       enddo
 
+#if 0
       ilm=0
       do il=0,lmax
       do im=-il,il
@@ -45,9 +46,12 @@
       enddo
       enddo
       nilm=ilm
+#ifdef DEBUG_WRITE
       write(*,'(20i3)')  ( i,i=1,nilm )
       write(*,'(20i3)')  ( ilmlist(1,1:nilm) )
       write(*,'(20i3)')  ( ilmlist(2,1:nilm) )
+#endif
+#endif
 
       range=3.0d0
       write(*,*) lmax,lmx, (lmx+1)*(lmx+1) 
@@ -85,22 +89,26 @@ c         write(10+id,*) ' '
 c         enddo
       enddo
 
+#ifdef DEBUG_WRITE
       write(*,*) id, 'max','min'
       do id=1,(lmx+1)**2
         write(*,*) id, maxval(val(:,:,:,id)), minval(val(:,:,:,id))
       enddo
+#endif
 
       id=0
       do il=0,2
 
       valL(:,:,:,-il:il)= val(:,:,:,id+1:id+1+2*il+1) 
 
+#ifdef DEBUG_WRITE
       do im=-il,il
          write(*,'(10f10.5)') dlmm(:,im,il,1)
       enddo 
+#endif
 
       ! rotate
-      !   Ylm'= \sum m' Ylm Dmm'
+      !   Ylm= \sum m' Ylm' Dm'm
       rotvalL=0.0d0
        do im=-il,il
          do im2=-il,il
@@ -109,10 +117,12 @@ c         enddo
          enddo
        enddo 
 
+#ifdef DEBUG_WRITE
        do im=-il,il
          write(*,*) 'max,min=',maxval(rotvalL(:,:,:,im)),
      .          minval(rotvalL(:,:,:,im)) 
        enddo
+#endif
 
       do im=-il,il
       id=id+1

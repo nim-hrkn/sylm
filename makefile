@@ -1,14 +1,14 @@
 
 FC=ifort
-FFLAGS= -O0 -g  -fpe0  -traceback 
+FFLAGS= -O0 -g  -fpe0  -traceback  -132
 LIBS=-L/opt/intel/mkl/10.0.2.018/lib/em64t -lmkl_lapack -lmkl 
 LDFLAGS= -pthread -parallel 
 
 OBJ=  mate.o  linpackdummy.o \
   cross.o  rotdlmm.o  writemesh.o \
-  eulerangle.o 
+  m_eulerangle.o 
 
-all: main3d main1b
+all: main3d 
 
 main1: main1.o $(OBJ)
 	$(FC) -o $@  main1.o  $(OBJ)  $(LIBS) $(LDFLAGS) 

@@ -33,15 +33,21 @@
 
  130  format(a,9F20.10) 
 
-      axisc=(/0.0,1.0,1.0/)
-      axisa=(/0.0d0,0.0d0,1.0d0/)
-      call axisac2rot(axisa,axisc,rot,0.0d0)
+      axisc=(/1.0d0,1.0d0,0.5d0/)
+      axisa=(/1.0d0,0.0d0,.0d0/)
 
-      call writemesh(rot,nl,lmax,lmx,'b.cube')
-
-      write(*,*) '----------------------'
-
+c#if 0
+c      call axisac2rot(axisa,axisc,rot,0.0d0)
+c
+c      call writemesh(rot,nl,lmax,lmx,'b.cube')
+c
+c      write(*,*) '----------------------'
+c
+c#endif
       call axisac2rot(axisa,axisc,rot)
+      do i=1,3
+        write(*,*) rot(:,i)
+      enddo
 
       call writemesh(rot,nl,lmax,lmx,'c.cube')
 
