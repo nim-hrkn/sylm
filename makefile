@@ -5,10 +5,10 @@ LIBS=-L/opt/intel/mkl/10.0.2.018/lib/em64t -lmkl_lapack -lmkl
 LDFLAGS= -pthread -parallel 
 
 OBJ=  mate.o  linpackdummy.o \
-  cross.o  rotdlmm.o  writemesh.o \
+  cross.o  rotdlmm.o  writemesh2.o writemesh.o \
   m_eulerangle.o 
 
-all: main3d 
+all: main3e
 
 main1: main1.o $(OBJ)
 	$(FC) -o $@  main1.o  $(OBJ)  $(LIBS) $(LDFLAGS) 
@@ -27,6 +27,9 @@ main3c: main3c.o $(OBJ)
 	$(FC) -o $@  main3c.o $(OBJ)  $(LIBS) $(LDFLAGS) 
 main3d: main3d.o $(OBJ) 
 	$(FC) -o $@  main3d.o $(OBJ)  $(LIBS) $(LDFLAGS) 
+
+main3e: main3e.o $(OBJ)
+	$(FC) -o $@  main3e.o $(OBJ)  $(LIBS) $(LDFLAGS)
 
 axis1: axis1.o 
 	$(FC) -o $@  axis1.o $(LIBS) $(LDFLAGS)
